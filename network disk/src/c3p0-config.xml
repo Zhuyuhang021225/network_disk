@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+    <default-config>
+        <!-- *驱动名称 -->
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <!-- *JDBC的URL -->
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/network_disk?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF8</property>
+        <!-- *用户名 -->
+        <property name="user">root</property>
+        <!-- *密码 -->
+        <property name="password">123456</property>
+        <!-- 连接超时30秒 -->
+        <property name="checkoutTimeout">30000</property>
+        <!-- 闲置连接的测试周期30毫秒 -->
+        <property name="idleConnectionTestPeriod">30</property>
+        <!-- 初始连接数 -->
+        <property name="initialPoolSize">1</property>
+        <!-- 最大闲置时间 -->
+        <property name="maxIdleTime">30</property>
+        <!-- *最大连接数 -->
+        <property name="maxPoolSize">1</property>
+        <!-- *最小连接数 -->
+        <property name="minPoolSize">1</property>
+        <!-- *最大命令数 -->
+        <property name="maxStatements">200</property>
+        <user-overrides user="test-user">
+            <property name="maxPoolSize">10</property>
+            <property name="minPoolSize">1</property>
+            <property name="maxStatements">0</property>
+        </user-overrides>
+    </default-config>
+    <!-- This app is massive! -->
+    <named-config name="intergalactoApp">
+        <property name="acquireIncrement">50</property>
+        <property name="initialPoolSize">100</property>
+        <property name="minPoolSize">50</property>
+        <property name="maxPoolSize">1000</property>
+        <!-- intergalactoApp adopts a different approach to configuring statement caching -->
+        <property name="maxStatements">0</property>
+        <property name="maxStatementsPerConnection">5</property>
+        <!-- he's important, but there's only one of him -->
+        <user-overrides user="master-of-the-universe">
+            <property name="acquireIncrement">1</property>
+            <property name="initialPoolSize">1</property>
+            <property name="minPoolSize">1</property>
+            <property name="maxPoolSize">5</property>
+            <property name="maxStatementsPerConnection">50</property>
+        </user-overrides>
+    </named-config>
+</c3p0-config>
